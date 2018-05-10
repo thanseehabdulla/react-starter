@@ -11,3 +11,5 @@ ReactDOM.render(
     <App/>
     , document.getElementById('root'));
 registerServiceWorker();
+
+module.hot.accept();
