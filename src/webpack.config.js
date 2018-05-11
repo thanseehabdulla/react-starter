@@ -1,4 +1,6 @@
 const webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var path = require('path');
 
 module.exports = {
     entry: [
@@ -18,9 +20,31 @@ module.exports = {
                 use: ['style-loader', 'css-loader']
             },
             {
-                test: /\.svg$/,
-                loader: 'svg-inline-loader'
-            }
+                exclude: [
+                    /\.html$/,
+                    /\.(js|jsx)$/,
+                    /\.less$/,
+                    /\.css$/,
+                    /\.json$/,
+                    /\.bmp$/,
+                    /\.gif$/,
+                    /\.jpe?g$/,
+                    /\.png$/,
+                ],
+                loader: require.resolve('file-loader'),
+                options: {
+                    name: 'static/media/[name].[hash:8].[ext]',
+                }
+            },
+            {
+                test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+                loader: require.resolve('url-loader'),
+                options: {
+                    limit: 10000,
+                    name: 'static/media/[name].[hash:8].[ext]',
+                },
+            },
+
         ]
     },
     resolve: {
